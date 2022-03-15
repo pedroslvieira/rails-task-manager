@@ -1,0 +1,19 @@
+<br><h2>My Tasks</h2>
+
+
+<ul class="list-group" id="list" style="list-style:none; padding-left:0">
+  <% @tasks.each do |task| %>
+    <li class="list-group-item">
+      <div class="div"><%= simple_form_for task, :url=> "completed/#{task.id}", :method => :post do |f| f.check_box(:completed, {checked: (task.completed ? true : false), onchange: "submit();"}, false, true) end %></div>
+      <div class="div"><%= link_to task.title, task_path(task) %></div>
+      <div class="div">
+        <%= link_to "<i class='fa fa-trash-o fa-lg'></i>".html_safe,
+            task_path(task),
+            method: :delete,
+            data: { confirm: "Are you sure?" } %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<a href="tasks/new" class="btn btn-primary m-3">New Task</a>
